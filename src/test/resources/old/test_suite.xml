@@ -2,7 +2,7 @@
 <suite name="suite">
    <test name="test suite">
        <classes>
-           <class name="XYZBankTests"/>
+           <class name="old.XYZBankTests"/>
       </classes>
     </test>
 </suite>

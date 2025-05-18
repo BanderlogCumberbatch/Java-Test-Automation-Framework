@@ -2,9 +2,9 @@
 <suite name="suite" parallel="methods" thread-count="3">
     <test name="test suite">
         <classes>
-            <class name="AddCustomersTest"/>
-            <class name="SortCustomersTest"/>
-            <class name="DeleteCustomersTest"/>
+            <class name="old.AddCustomersTest"/>
+            <class name="old.SortCustomersTest"/>
+            <class name="old.DeleteCustomersTest"/>
         </classes>
     </test>
 </suite>

@@ -29,7 +29,7 @@ public class AddCustomerPage extends BankManagerPage {
     WebElement postCodeInput;
 
     /**
-     * Кнопка перехода на страницу добавления пользователя.
+     * Кнопка для добавления пользователя.
      */
     @FindBy(xpath = "//*[contains(text(),'Add Customer') and contains(@class, 'btn btn-default')]")
     WebElement addCustomerButton;

@@ -1,3 +1,5 @@
+package old;
+
 import generator.TestDataGenerator;
 import org.pages.BankManagerPage;
 import org.pages.CustomersPage;

@@ -1,4 +1,4 @@
-package org.helpers;
+package org.framework;
 
 import lombok.Getter;
 
