@@ -1,0 +1,16 @@
+browser:
+  name: chrome
+  headless: false
+  implicit_wait: 10
+  window_size: 1920x1080
+
+environments:
+  dev:
+    base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount/"
+  prod:
+    base_url: "https://www.globalsqa.com/"
+
+credentials:
+  admin:
+    username: "admin_user"
+    password: "123"

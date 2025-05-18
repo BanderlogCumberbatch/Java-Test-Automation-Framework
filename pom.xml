@@ -117,6 +117,7 @@
             <version>4.29.0</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
@@ -124,6 +125,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Для работы с YAML -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+        </dependency>
 
     </dependencies>
 

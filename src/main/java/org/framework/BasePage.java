@@ -13,7 +13,7 @@ public class BasePage {
 
     public BasePage() {
         this.driver = BrowserManager.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigManager.getImplicitWait()));
     }
 
     public void open(String url) {
