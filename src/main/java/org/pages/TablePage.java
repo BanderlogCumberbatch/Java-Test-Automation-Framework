@@ -1,9 +1,8 @@
 package org.pages;
 
 import io.qameta.allure.Step;
-import org.framework.BasePage;
-import org.framework.BrowserManager;
-import org.framework.Wait;
+import org.helper.BrowserManager;
+import org.helper.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,23 +25,23 @@ public class TablePage extends BasePage {
     /**
      * Селектор столбца таблицы.
      */
-    private final String tableColumnSelector = "//table[contains(@class, 'table-bordered')]/tbody/tr/td[%s]";
+    private final String tableColumnSelector = "//table[contains(@class, 'table')]/tbody/tr/td[%s]";
 
     /**
      * Селектор кнопки сортировки столбца.
      */
-    private final String tableSortButtonSelector = "//table[contains(@class, 'table-bordered')]/thead/tr/td[%s]/a";
+    private final String tableSortButtonSelector = "//table[contains(@class, 'table')]/thead/tr/td[%s]/a";
 
     /**
      * Селектор выбирающий строку со всеми данными выбранного столбца с определённым значением элемента.
      */
-    private final String tableDataSelector = "//table[contains(@class, 'table-bordered')]/tbody/tr[" +
+    private final String tableDataSelector = "//table[contains(@class, 'table')]/tbody/tr[" +
             "td[%s][text()='%s']]";
 
     /**
      * Селектор выбирающий элементы 1-го, 2-го и 3-го столбцов с определенными значениями.
      */
-    private final String tableDataMultiSelector = "//table[contains(@class, 'table-bordered')]/tbody/tr[" +
+    private final String tableDataMultiSelector = "//table[contains(@class, 'table')]/tbody/tr[" +
             "td[1][text()='%s'] and " +
             "td[2][text()='%s'] and " +
             "td[3][text()='%s']]";
@@ -50,10 +49,10 @@ public class TablePage extends BasePage {
     /**
      * Селектор выбирающий из таблицы кнопку определённого столбца (кнопку удаления) с определённым значением другого столбца (имя).
      */
-    private final String tableButtonSelector = "//table[contains(@class, 'table-bordered')]/tbody/tr[td[%s][text()='%s']]/td[%s]/button";
+    private final String tableButtonSelector = "//table[contains(@class, 'table')]/tbody/tr[td[%s][text()='%s']]/td[%s]/button";
 
     /**
-     * Возвращает список со строкой со всеми данными выбранного столбца с определённым значением элемента.
+     * Возвращает список со строкой со всеми данными выбранной строки по-определённому столбцу и значению элемента.
      * @return List<String>
      */
     @Step("Get list of data of selected column")

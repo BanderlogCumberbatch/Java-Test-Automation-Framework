@@ -1,5 +1,8 @@
-package org.framework;
+package org.pages;
 
+import org.helper.BrowserManager;
+import org.helper.ConfigManager;
+import org.helper.Wait;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +17,10 @@ public class BasePage {
     public BasePage() {
         this.driver = BrowserManager.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigManager.getImplicitWait()));
+    }
+
+    public void open() {
+        driver.get(ConfigManager.getBaseUrl());
     }
 
     public void open(String url) {

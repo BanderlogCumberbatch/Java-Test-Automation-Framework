@@ -1,4 +1,4 @@
-package org.framework;
+package org.helper;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +25,7 @@ public class BrowserManager {
                     }
                     else {
                         ffOptions.addArguments("--window-size=" +
-                                ConfigManager.getProperty("browser.window_size"));
+                                ConfigManager.get("browser.window_size"));
                     }
                     driver = new FirefoxDriver(ffOptions);
                     break;
@@ -38,7 +38,7 @@ public class BrowserManager {
                     }
                     else {
                         chromeOptions.addArguments("--window-size=" +
-                                ConfigManager.getProperty("browser.window_size"));
+                                ConfigManager.get("browser.window_size"));
                     }
                     driver = new ChromeDriver(chromeOptions);
             }

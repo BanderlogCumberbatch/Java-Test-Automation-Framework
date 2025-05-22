@@ -1,5 +1,5 @@
-import org.framework.BasePage;
-import org.framework.BrowserManager;
+import org.pages.BasePage;
+import org.helper.BrowserManager;
 import org.openqa.selenium.By;
 import org.junit.jupiter.api.*;
 import org.pages.TablePage;
@@ -17,7 +17,7 @@ class BasicTest {
 
     @Test
     void testBaSick() {
-        page.open("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount/");
+        page.open();
         page.click(By.xpath("//*[contains(@ng-click, 'manager()')]"));
         page.click(By.xpath("//*[contains(@ng-click, 'addCust()')]"));
         page.type(By.xpath("//*[contains(@placeholder, 'First Name')]"), "First Name");
