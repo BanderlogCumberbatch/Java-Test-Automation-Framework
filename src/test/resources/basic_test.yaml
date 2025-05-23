@@ -4,7 +4,7 @@
   steps:
     - name: "Открытие сайта"
       action: OPEN
-      url: "environments.dev.base_url"
+      url:
 
     - name: "Переход на страницу менеджера"
       action: CLICK
@@ -23,21 +23,21 @@
       element:
         by: XPATH
         value: "//*[contains(@placeholder, 'First Name')]"
-      value: "credentials.client.firstname"
+      value: "${credentials.client.firstname}"
 
     - name: "Ввод фамилии"
       action: TYPE
       element:
         by: XPATH
         value: "//*[contains(@placeholder, 'Last Name')]"
-      value: "credentials.client.lastname"
+      value: "${credentials.client.lastname}"
 
     - name: "Ввод почтового индекса"
       action: TYPE
       element:
         by: XPATH
         value: "//*[contains(@placeholder, 'Post Code')]"
-      value: "credentials.client.postcode"
+      value: "${credentials.client.postcode}"
 
     - name: "Добавить клиента"
       action: CLICK

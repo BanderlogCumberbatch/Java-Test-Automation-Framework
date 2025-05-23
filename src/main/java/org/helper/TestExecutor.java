@@ -7,6 +7,8 @@ import org.pages.BasePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 public class TestExecutor {
     private static final Logger logger = LoggerFactory.getLogger(TestExecutor.class);
     private final BasePage page = new BasePage();
@@ -27,11 +29,17 @@ public class TestExecutor {
     private void executeStep(TestStep step) {
         switch (step.getAction()) {
             case OPEN:
-                page.open(ConfigManager.get(step.getUrl()));
+                String url = step.getUrl();
+                if (Objects.nonNull(url)) {
+                    page.open(ConfigManager.getResolvedKey(url));
+                }
+                else {
+                    page.open();
+                }
                 break;
             case TYPE:
                 By locator = buildLocator(step.getElement());
-                page.type(locator, ConfigManager.get(step.getValue()));
+                page.type(locator, ConfigManager.getResolvedKey(step.getValue()));
                 break;
             case CLICK:
                 page.click(buildLocator(step.getElement()));
@@ -45,7 +53,7 @@ public class TestExecutor {
     }
 
     private By buildLocator(Element element) {
-        String value = ConfigManager.get(element.getValue());
+        String value = ConfigManager.getResolvedKey(element.getValue());
         return switch (element.getBy()) {
             case CSS -> By.cssSelector(value);
             case XPATH -> By.xpath(value);

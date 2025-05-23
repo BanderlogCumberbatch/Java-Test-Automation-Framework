@@ -7,8 +7,9 @@ browser:
 environments:
   dev:
     base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount/"
+    table_url: "https://www.w3schools.com/html/html_tables.asp"
   prod:
-    base_url: "https://www.globalsqa.com/"
+    base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/"
 
 credentials:
   admin:

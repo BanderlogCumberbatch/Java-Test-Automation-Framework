@@ -2,5 +2,5 @@
 package org.model;
 
 public enum TestAction {
-    OPEN, TYPE, CLICK, WAIT, ACCEPT_ALERT
+    OPEN, TYPE, CLICK, ACCEPT_ALERT
 }

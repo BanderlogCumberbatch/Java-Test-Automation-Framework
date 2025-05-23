@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringSubstitutor;
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Properties;
 
@@ -64,12 +65,25 @@ public final class ConfigManager {
         return get("environments." + env + ".base_url");
     }
 
-    public static long getImplicitWait() {
-        return Long.parseLong(get("browser.implicit_wait", "10"));
+    public static Duration getImplicitWait() {
+        return Duration.ofSeconds(Long.parseLong(get("browser.implicit_wait", "10")));
+    }
+
+    public static String getWindowSize() {
+        return get("browser.window_size", "1080x1080").replace("x", ",");
     }
 
     public static String get(String key) {
-        return get(key, key);
+        return get(key, "");
+    }
+
+    public static String getResolvedKey(String input) {
+        // Проверяем, содержит ли строка плейсхолдеры вида ${...}
+        if (input.matches(".*\\$\\{.*}.*")) {
+            String key = input.substring(2, input.length() - 1);
+            return get(key);
+        }
+        return input; // Возвращаем исходное значение, если плейсхолдеров нет
     }
 
     public static String get(String key, String defaultValue) {

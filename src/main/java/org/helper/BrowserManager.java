@@ -21,11 +21,11 @@ public class BrowserManager {
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions ffOptions = new FirefoxOptions();
                     if (headless) {
-                        ffOptions.addArguments("-headless=new");
+                        ffOptions.addArguments("--headless");
                     }
                     else {
                         ffOptions.addArguments("--window-size=" +
-                                ConfigManager.get("browser.window_size"));
+                                ConfigManager.getWindowSize());
                     }
                     driver = new FirefoxDriver(ffOptions);
                     break;
@@ -34,11 +34,11 @@ public class BrowserManager {
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
                     if (headless) {
-                        chromeOptions.addArguments("-headless=new");
+                        chromeOptions.addArguments("--headless");
                     }
                     else {
                         chromeOptions.addArguments("--window-size=" +
-                                ConfigManager.get("browser.window_size"));
+                                ConfigManager.getWindowSize());
                     }
                     driver = new ChromeDriver(chromeOptions);
             }
