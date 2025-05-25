@@ -19,4 +19,10 @@ public class TestCaseLoader {
             throw new RuntimeException("Ошибка загрузки тест-кейсов", e);
         }
     }
+
+    public static void executeYamlTest(String testPath) {
+        List<TestCase> testCases = TestCaseLoader.loadTestCases(testPath);
+        TestExecutor executor = new TestExecutor();
+        testCases.forEach(executor::execute);
+    }
 }

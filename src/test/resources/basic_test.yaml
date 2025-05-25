@@ -1,6 +1,6 @@
 - name: "Добавление клиента в XYZBank"
   description: "Базовый тест"
-  tags: [auth, smoke]
+  tags: [add]
   steps:
     - name: "Открытие сайта"
       action: OPEN
@@ -53,3 +53,68 @@
       element:
         by: XPATH
         value: "//*[contains(@ng-click, 'showCust()')]"
+
+    - name: "Проверка текста кнопки"
+      action: GET_TEXT
+      element:
+        by: XPATH
+        value: "//*[contains(@class, 'btn home')]"
+      expected: "Home"
+      assert: EQUALS
+
+- name: "Проверка таблицы"
+  description: "Базовый тест"
+  tags: [table, functional]
+  steps:
+    - name: "Проверка столбца"
+      action: CALL_METHOD
+      method: getColumnSelectedElement
+      args: [ 1, "First Name" ]
+      expected: [ "First Name Last Name Post Code Delete" ]
+      assert: EQUALS
+      type: HARD
+
+    - name: "Сортировка столбца"
+      action: CALL_METHOD
+      method: sortByColumn
+      args: [ 1 ]
+
+    - name: "Проверка обратной сортировки"
+      action: CALL_METHOD
+      method: isSortedByColumnInReverse
+      args: [ 1 ]
+      assert: ASSERT_TRUE
+      type: SOFT
+
+    - name: "Сортировка столбца"
+      action: CALL_METHOD
+      method: sortByColumn
+      args: [ 1 ]
+
+    - name: "Проверка сортировки"
+      action: CALL_METHOD
+      method: isSortedByColumn
+      args: [ 1 ]
+      assert: ASSERT_TRUE
+      type: SOFT
+
+    - name: "Проверка столбца"
+      action: CALL_METHOD
+      method: getSelectedElementOfColumn
+      args: [ "First Name", 1 ]
+      expected: [ "First Name" ]
+      assert: EQUALS
+      type: SOFT
+
+    - name: "Удаление элемента"
+      action: CALL_METHOD
+      method: deleteElement
+      args: [ 5, 1, "First Name" ]
+
+    - name: "Проверка столбца"
+      action: CALL_METHOD
+      method: getSelectedElementOfColumn
+      args: [ "First Name", 1 ]
+      expected: [ "First Name" ]
+      assert: NOT_EQUALS
+      type: SOFT

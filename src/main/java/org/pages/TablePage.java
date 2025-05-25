@@ -56,7 +56,7 @@ public class TablePage extends BasePage {
      * @return List<String>
      */
     @Step("Get list of data of selected column")
-    public final List<String> getColumnSelectedElement(int column, String element) {
+    public final List<String> getColumnSelectedElement(Integer column, String element) {
         Wait.waitUntilVisible(driver, By.xpath(String.format(tableColumnSelector, column)));
         return driver
                 .findElements(By.xpath(String.format(tableDataSelector, column, element)))
@@ -70,7 +70,7 @@ public class TablePage extends BasePage {
      * @return List<String>
      */
     @Step("Get column elements list")
-    public final List<String> getColumnElementsList(int column) {
+    public final List<String> getColumnElementsList(Integer column) {
         Wait.waitUntilVisible(driver, By.xpath(String.format(tableColumnSelector, column)));
         return driver
                 .findElements(By.xpath(String.format(tableColumnSelector, column)))
@@ -84,7 +84,7 @@ public class TablePage extends BasePage {
      * @return List<String>
      */
     @Step("Get element of selected column (stream)")
-    public final List<String> getSelectedElementOfColumn(String element, int column) {
+    public final List<String> getSelectedElementOfColumn(String element, Integer column) {
         Wait.waitUntilVisible(driver, By.xpath(String.format(tableColumnSelector, column)));
         return driver
                 .findElements(By.xpath(String.format(tableColumnSelector, column)))
@@ -99,7 +99,7 @@ public class TablePage extends BasePage {
      * @return boolean
      */
     @Step("Check if the table is sorted")
-    public boolean isSortedByColumn(int column) {
+    public boolean isSortedByColumn(Integer column) {
         List<String> names = getColumnElementsList(column);
         return SortChecker.isSorted(names);
     }
@@ -109,7 +109,7 @@ public class TablePage extends BasePage {
      * @return boolean
      */
     @Step("Check if the table is sorted in reverse order")
-    public boolean isSortedByColumnInReverse(int column) {
+    public boolean isSortedByColumnInReverse(Integer column) {
         List<String> names = getColumnElementsList(column);
         return SortChecker.isSortedInReverse(names);
     }
@@ -118,7 +118,7 @@ public class TablePage extends BasePage {
      * Сортирует таблицу по определенному столбцу.
      */
     @Step("Sort table by column")
-    public void sortByColumn(int column) {
+    public void sortByColumn(Integer column) {
         Wait.waitThenCLick(driver, By.xpath(String.format(tableSortButtonSelector, column)));
     }
 
@@ -126,7 +126,7 @@ public class TablePage extends BasePage {
      * Удаляет из таблицы пользователя с именем.
      */
     @Step("Delete table element")
-    public void deleteElement(int buttonColumn, int column, String element) {
+    public void deleteElement(Integer buttonColumn, Integer column, String element) {
         Wait.waitThenCLick(driver, By.xpath(String.format(tableButtonSelector, column, element, buttonColumn)));
     }
 }
