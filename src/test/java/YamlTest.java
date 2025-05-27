@@ -2,7 +2,7 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static org.helper.TestCaseLoader.executeYamlTest;
+import static org.helpers.TestCaseLoader.executeYamlTest;
 
 class YamlTest {
 

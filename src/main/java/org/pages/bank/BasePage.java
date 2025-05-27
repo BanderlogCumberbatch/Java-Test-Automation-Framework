@@ -1,7 +1,7 @@
 package org.pages.bank;
 
 import io.qameta.allure.Step;
-import org.helpers.Wait;
+import org.helpers.bank.Wait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

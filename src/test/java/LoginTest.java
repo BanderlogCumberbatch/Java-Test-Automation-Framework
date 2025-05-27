@@ -1,4 +1,4 @@
-import org.helper.BrowserManager;
+import org.helpers.BrowserManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

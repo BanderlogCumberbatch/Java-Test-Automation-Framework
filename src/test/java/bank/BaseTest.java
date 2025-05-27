@@ -1,6 +1,6 @@
 package bank;
 
-import org.helpers.PropertyProvider;
+import org.helpers.bank.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

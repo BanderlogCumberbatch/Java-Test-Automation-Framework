@@ -1,8 +1,8 @@
 package org.pages;
 
 import io.qameta.allure.Step;
-import org.helper.BrowserManager;
-import org.helper.Wait;
+import org.helpers.BrowserManager;
+import org.helpers.Wait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
