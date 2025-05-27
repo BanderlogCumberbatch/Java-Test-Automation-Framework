@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.1.dtd">
-<suite name="suite">
-   <test name="test suite">
-       <classes>
-           <class name="bank.XYZBankTests"/>
-      </classes>
-    </test>
-</suite>
-
