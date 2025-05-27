@@ -1,0 +1,9 @@
+- name: "Действия после теста"
+  description: "Тест XYZBank"
+  tags: [after_test]
+  steps:
+    - name: "Очистить браузер"
+      action: REFRESH
+
+    - name: "Выйти из браузера"
+      action: QUIT

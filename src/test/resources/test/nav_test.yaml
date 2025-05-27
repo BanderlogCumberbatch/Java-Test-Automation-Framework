@@ -1,0 +1,28 @@
+- name: "Навигация между страницами"
+  steps:
+    - name: "Открыть главную страницу"
+      action: OPEN
+      url: "https://example.com"
+
+    - name: "Перейти на страницу About"
+      action: CLICK
+      element:
+        by: XPATH
+        value: "//a[text()='More information...']"
+
+    - name: "Проверить URL"
+      action: GET_URL
+      assert:
+        method: EQUALS
+        expected: "https://example.com/about"
+        soft: TRUE
+
+    - name: "Вернуться назад"
+      action: NAV_BACK
+
+    - name: "Проверить URL после возврата"
+      action: GET_URL
+      assert:
+        method: EQUALS
+        expected: "https://example.com/"
+        soft: TRUE

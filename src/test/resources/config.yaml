@@ -1,0 +1,24 @@
+browser:
+  name: firefox
+  headless: false
+  implicit_wait: 10
+  window_size: 1920x1080
+
+environments:
+  dev:
+    base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount/"
+    sauce_url: "https://www.saucedemo.com/"
+  prod:
+    base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/"
+
+credentials:
+  admin:
+    username: "admin_user"
+    password: "123"
+  standard_user:
+    username: "standard_user"
+    password: "secret_sauce"
+  client:
+    firstname: "First Name"
+    lastname: "Last Name"
+    postcode: "Post Code"
