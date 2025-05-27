@@ -69,8 +69,7 @@
   tags: [table, functional]
   steps:
     - name: "Проверка добавленных данных"
-      action: CALL_METHOD
-      method: getSelectedRowString
+      action: GET_TABLE_ROW
       args: [ 1, "First Name" ]
       assert:
         method: EQUALS
@@ -78,26 +77,22 @@
         soft: FALSE
 
     - name: "Сортировка столбца"
-      action: CALL_METHOD
-      method: sortByColumn
+      action: SORT_TABLE_COLUMN
       args: [ 1 ]
 
     - name: "Проверка обратной сортировки"
-      action: CALL_METHOD
-      method: isSortedByColumnInReverse
+      action: CHECK_COLUMN_SORTED_REV
       args: [ 1 ]
       assert:
         method: ASSERT_TRUE
         soft: TRUE
 
     - name: "Сортировка столбца"
-      action: CALL_METHOD
-      method: sortByColumn
+      action: SORT_TABLE_COLUMN
       args: [ 1 ]
 
     - name: "Проверка сортировки"
-      action: CALL_METHOD
-      method: isSortedByColumn
+      action: CHECK_COLUMN_SORTED
       args: [ 1 ]
       assert:
         method: ASSERT_TRUE
@@ -113,13 +108,11 @@
         soft: TRUE
 
     - name: "Удаление элемента"
-      action: CALL_METHOD
-      method: deleteElement
+      action: CLICK_TABLE_ELEMENT
       args: [ 5, 1, "First Name" ]
 
     - name: "Проверка данных после удаления"
-      action: CALL_METHOD
-      method: getSelectedElementOfColumn
+      action: GET_TABLE_ELEMENT
       args: [ "First Name", 1 ]
       assert:
         method: NOT_EQUALS

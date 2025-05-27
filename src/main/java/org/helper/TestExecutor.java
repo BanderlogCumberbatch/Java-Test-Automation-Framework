@@ -107,6 +107,55 @@ public class TestExecutor {
             case QUIT:
                 BrowserManager.quit();
                 break;
+            case GET_TABLE_ROW:
+                lastResult = invokeTablePageMethod("getSelectedRowString", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case GET_TABLE_COLUMN:
+                lastResult = invokeTablePageMethod("getColumnElementsList", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case GET_TABLE_ELEMENT:
+                lastResult = invokeTablePageMethod("getSelectedElementOfColumn", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case SORT_TABLE_COLUMN:
+                lastResult = invokeTablePageMethod("sortByColumn", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case CHECK_COLUMN_SORTED:
+                lastResult = invokeTablePageMethod("isSortedByColumn", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case CHECK_COLUMN_SORTED_REV:
+                lastResult = invokeTablePageMethod("isSortedByColumnInReverse", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case CLICK_TABLE_ELEMENT:
+                lastResult = invokeTablePageMethod("deleteElement", step.getArgs());
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
             case CALL_METHOD:
                 lastResult = invokeTablePageMethod(step.getMethod(), step.getArgs());
                 assertAction = step.getAssertAction();

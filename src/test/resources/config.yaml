@@ -1,5 +1,5 @@
 browser:
-  name: firefox
+  name: chrome
   headless: false
   implicit_wait: 10
   window_size: 1920x1080
