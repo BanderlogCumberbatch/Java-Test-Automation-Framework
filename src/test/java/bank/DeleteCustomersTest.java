@@ -1,5 +1,7 @@
-import org.pages.BankManagerPage;
-import org.pages.CustomersPage;
+package bank;
+
+import org.pages.bank.BankManagerPage;
+import org.pages.bank.CustomersPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

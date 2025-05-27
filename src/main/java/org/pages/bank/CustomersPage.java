@@ -1,4 +1,4 @@
-package org.pages;
+package org.pages.bank;
 
 import io.qameta.allure.Step;
 import org.helpers.Wait;

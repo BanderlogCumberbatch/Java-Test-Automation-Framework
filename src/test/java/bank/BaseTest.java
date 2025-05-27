@@ -1,9 +1,10 @@
+package bank;
 
 import org.helpers.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.pages.StartPage;
+import org.pages.bank.StartPage;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;

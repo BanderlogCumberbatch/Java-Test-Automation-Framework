@@ -1,4 +1,4 @@
-package org.pages;
+package org.pages.bank;
 
 import org.openqa.selenium.WebDriver;
 
