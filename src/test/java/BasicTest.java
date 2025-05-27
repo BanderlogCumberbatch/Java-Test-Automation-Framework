@@ -1,4 +1,4 @@
-import org.pages.BasePage;
+import org.pages.Page;
 import org.helper.BrowserManager;
 import org.openqa.selenium.By;
 import org.junit.jupiter.api.*;
@@ -8,11 +8,11 @@ import org.testng.asserts.SoftAssert;
 import java.util.Collections;
 
 class BasicTest {
-    BasePage page;
+    Page page;
 
     @BeforeEach
     void setUp() {
-        page = new BasePage();
+        page = new Page();
     }
 
     @Test
@@ -29,7 +29,7 @@ class BasicTest {
         TablePage page = new TablePage();
         Assertions.assertEquals("Home", page.getText(By.xpath("//*[contains(@class, 'btn home')]")), "Данные не сходятся");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(Collections.singletonList("First Name Last Name Post Code Delete"), page.getColumnSelectedElement(1, "First Name"), "Данные не сходятся с ожидаемой строкой");
+        softAssert.assertEquals(Collections.singletonList("First Name Last Name Post Code Delete"), page.getSelectedRowString(1, "First Name"), "Данные не сходятся с ожидаемой строкой");
         page.sortByColumn(1);
         softAssert.assertTrue(page.isSortedByColumnInReverse(1), "Первый столбец не отсортирован в обратном порядке");
         page.sortByColumn(1);
@@ -42,6 +42,7 @@ class BasicTest {
 
     @AfterAll
     static void tearDown() {
+        BrowserManager.refresh();
         BrowserManager.quit();
     }
 }

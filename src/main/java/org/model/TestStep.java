@@ -14,9 +14,6 @@ public class TestStep {
     private String value;
     private String method;
     private List<Object> args;
-    private Object expected;
     @JsonProperty("assert")
-    private AssertMethod assertMethod;
-    @JsonProperty("type")
-    private AssertType assertType;
+    private Assert assertAction;
 }

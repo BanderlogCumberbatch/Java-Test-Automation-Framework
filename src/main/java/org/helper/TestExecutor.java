@@ -4,7 +4,7 @@ package org.helper;
 import org.junit.jupiter.api.Assertions;
 import org.model.*;
 import org.openqa.selenium.By;
-import org.pages.BasePage;
+import org.pages.Page;
 import org.pages.TablePage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class TestExecutor {
     private static final Logger logger = LoggerFactory.getLogger(TestExecutor.class);
-    private final BasePage page = new BasePage();
+    private final Page page = new Page();
     private final TablePage tablePage = new TablePage();
     private final SoftAssert softAssert = new SoftAssert();
     private Object lastResult;
@@ -37,7 +37,7 @@ public class TestExecutor {
 
     private void executeStep(TestStep step) {
         By locator;
-        AssertMethod assertMethod;
+        Assert assertAction;
         switch (step.getAction()) {
             case OPEN:
                 String url = step.getUrl();
@@ -58,19 +58,60 @@ public class TestExecutor {
             case ACCEPT_ALERT:
                 page.acceptAlert();
                 break;
+            case CLEAR_FIELD:
+                page.clearField(buildLocator(step.getElement()));
+                break;
             case GET_TEXT:
                 locator = buildLocator(step.getElement());
                 lastResult = page.getText(locator);
-                assertMethod = step.getAssertMethod();
-                if (Objects.nonNull(assertMethod)) {
-                    performAssert(step);
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
                 }
+                break;
+            case CHECK_VISIBLE:
+                locator = buildLocator(step.getElement());
+                lastResult = page.checkElementVisible(locator);
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case CHECK_ENABLED:
+                locator = buildLocator(step.getElement());
+                lastResult = page.checkElementEnabled(locator);
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case GET_URL:
+                lastResult = page.getCurrentUrl();
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
+                }
+                break;
+            case NAV_FORWARD:
+                page.navigateForward();
+                break;
+            case NAV_BACK:
+                page.navigateBack();
+                break;
+            case REFRESH_PAGE:
+                page.refreshPage();
+                break;
+            case REFRESH:
+                BrowserManager.refresh();
+                break;
+            case QUIT:
+                BrowserManager.quit();
                 break;
             case CALL_METHOD:
                 lastResult = invokeTablePageMethod(step.getMethod(), step.getArgs());
-                assertMethod = step.getAssertMethod();
-                if (Objects.nonNull(assertMethod)) {
-                    performAssert(step);
+                assertAction = step.getAssertAction();
+                if (Objects.nonNull(assertAction)) {
+                    performAssert(assertAction, step.getName());
                 }
                 break;
             default:
@@ -91,38 +132,38 @@ public class TestExecutor {
         };
     }
 
-    private void performAssert(TestStep step) {
-        switch (step.getAssertMethod()) {
+    private void performAssert(Assert assertAction, String assertName) {
+        switch (assertAction.getMethod()) {
             case EQUALS:
-                if (step.getAssertType() == AssertType.SOFT) {
-                    softAssert.assertEquals(lastResult, step.getExpected(), step.getName());
+                if (assertAction.getSoft()) {
+                    softAssert.assertEquals(lastResult, assertAction.getExpected(), assertName);
                 } else {
-                    Assertions.assertEquals(step.getExpected(), lastResult, step.getName());
+                    Assertions.assertEquals(assertAction.getExpected(), lastResult, assertName);
                 }
                 break;
             case NOT_EQUALS:
-                if (step.getAssertType() == AssertType.SOFT) {
-                    softAssert.assertNotEquals(lastResult, step.getExpected(), step.getName());
+                if (assertAction.getSoft()) {
+                    softAssert.assertNotEquals(lastResult, assertAction.getExpected(), assertName);
                 } else {
-                    Assertions.assertNotEquals(step.getExpected(), lastResult, step.getName());
+                    Assertions.assertNotEquals(assertAction.getExpected(), lastResult, assertName);
                 }
                 break;
             case ASSERT_TRUE:
-                if (step.getAssertType() == AssertType.SOFT) {
-                    softAssert.assertTrue((Boolean) lastResult, step.getName());
+                if (assertAction.getSoft()) {
+                    softAssert.assertTrue((Boolean) lastResult, assertName);
                 } else {
-                    Assertions.assertTrue((Boolean) lastResult, step.getName());
+                    Assertions.assertTrue((Boolean) lastResult, assertName);
                 }
                 break;
             case ASSERT_FALSE:
-                if (step.getAssertType() == AssertType.SOFT) {
-                    softAssert.assertFalse((Boolean) lastResult, step.getName());
+                if (assertAction.getSoft()) {
+                    softAssert.assertFalse((Boolean) lastResult, assertName);
                 } else {
-                    Assertions.assertFalse((Boolean) lastResult, step.getName());
+                    Assertions.assertFalse((Boolean) lastResult, assertName);
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unsupported assert: " + step.getAssertMethod());
+                throw new IllegalArgumentException("Unsupported assert: " + assertAction.getMethod());
         }
     }
 

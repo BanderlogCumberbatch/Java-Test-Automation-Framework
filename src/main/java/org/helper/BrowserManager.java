@@ -1,5 +1,6 @@
 package org.helper;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -47,6 +48,19 @@ public class BrowserManager {
         return driver;
     }
 
+    /**
+     * Обновить браузер
+     */
+    @Step("Refresh browser")
+    public static void refresh() {
+        driver.manage().deleteAllCookies();
+        driver.navigate().refresh();
+    }
+
+    /**
+     * Выйти из браузера
+     */
+    @Step("Quit browser")
     public static void quit() {
         if (driver != null) {
             driver.quit();

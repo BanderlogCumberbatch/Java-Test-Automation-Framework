@@ -1,0 +1,115 @@
+- name: "Авторизация и оформление заказа"
+  description: "Тест Saucedemo.com"
+  tags: [ authorize, functional, sauce ]
+  steps:
+    - name: "Открыть страницу логина"
+      action: OPEN
+      url: "${environments.dev.sauce_url}"
+
+    - name: "Ввести логин"
+      action: TYPE
+      element:
+        by: ID
+        value: "user-name"
+      value: "${credentials.standard_user.username}"
+
+    - name: "Ввести пароль"
+      action: TYPE
+      element:
+        by: ID
+        value: "password"
+      value: "${credentials.standard_user.password}"
+
+    - name: "Нажать кнопку Login"
+      action: CLICK
+      element:
+        by: ID
+        value: "login-button"
+
+    - name: "Проверить переход в каталог"
+      action: GET_URL
+      assert:
+        method: EQUALS
+        expected: "https://www.saucedemo.com/inventory.html"
+        soft: FALSE
+
+    - name: "Добавить товар в корзину"
+      action: CLICK
+      element:
+        by: XPATH
+        value: "//div[text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button"
+
+    - name: "Проверить счетчик корзины"
+      action: GET_TEXT
+      element:
+        by: CSS
+        value: ".shopping_cart_badge"
+      assert:
+        method: EQUALS
+        expected: "1"
+        soft: TRUE
+
+    - name: "Перейти в корзину"
+      action: CLICK
+      element:
+        by: CSS
+        value: ".shopping_cart_link"
+
+    - name: "Проверить наличие товара"
+      action: GET_TEXT
+      element:
+        by: XPATH
+        value: "//div[@class='inventory_item_name']"
+      assert:
+        method: EQUALS
+        expected: "Sauce Labs Backpack"
+        soft: FALSE
+
+    - name: "Начать оформление"
+      action: CLICK
+      element:
+        by: ID
+        value: "checkout"
+
+    - name: "Заполнить данные"
+      action: TYPE
+      element:
+        by: ID
+        value: "first-name"
+      value: "John"
+
+    - name: ""
+      action: TYPE
+      element:
+        by: ID
+        value: "last-name"
+      value: "Doe"
+
+    - name: ""
+      action: TYPE
+      element:
+        by: ID
+        value: "postal-code"
+      value: "12345"
+
+    - name: "Продолжить"
+      action: CLICK
+      element:
+        by: ID
+        value: "continue"
+
+    - name: "Завершить покупку"
+      action: CLICK
+      element:
+        by: ID
+        value: "finish"
+
+    - name: "Проверить подтверждение"
+      action: GET_TEXT
+      element:
+        by: XPATH
+        value: "//h2[@class='complete-header']"
+      assert:
+        method: EQUALS
+        expected: "Thank you for your order!"
+        soft: FALSE

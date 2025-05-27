@@ -7,7 +7,7 @@ browser:
 environments:
   dev:
     base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount/"
-    table_url: "https://www.w3schools.com/html/html_tables.asp"
+    sauce_url: "https://www.saucedemo.com/"
   prod:
     base_url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/"
 
@@ -15,6 +15,9 @@ credentials:
   admin:
     username: "admin_user"
     password: "123"
+  standard_user:
+    username: "standard_user"
+    password: "secret_sauce"
   client:
     firstname: "First Name"
     lastname: "Last Name"

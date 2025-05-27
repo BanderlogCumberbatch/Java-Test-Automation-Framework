@@ -20,11 +20,12 @@ class TableTest {
     void testTable() {
         page.open("https://www.w3schools.com/html/html_tables.asp");
         Assert.assertFalse(page.isSortedByColumn(3), "Первый столбец не отсортирован");
-        Assertions.assertEquals(Collections.singletonList("Alfreds Futterkiste Maria Anders Germany"), page.getColumnSelectedElement(3, "Germany"), "Данные не сходятся с ожидаемой строкой");
+        Assertions.assertEquals(Collections.singletonList("Alfreds Futterkiste Maria Anders Germany"), page.getSelectedRowString(3, "Germany"), "Данные не сходятся с ожидаемой строкой");
     }
 
     @AfterAll
     static void tearDown() {
+        BrowserManager.refresh();
         BrowserManager.quit();
     }
 }

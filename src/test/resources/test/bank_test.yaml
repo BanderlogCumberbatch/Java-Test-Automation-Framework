@@ -1,6 +1,6 @@
-- name: "Добавление клиента в XYZBank"
-  description: "Базовый тест"
-  tags: [add]
+- name: "Добавление клиента"
+  description: "Тест XYZBank"
+  tags: [add_info]
   steps:
     - name: "Открытие сайта"
       action: OPEN
@@ -59,20 +59,23 @@
       element:
         by: XPATH
         value: "//*[contains(@class, 'btn home')]"
-      expected: "Home"
-      assert: EQUALS
+      assert:
+        method: EQUALS
+        expected: "Home"
+        soft: FALSE
 
 - name: "Проверка таблицы"
-  description: "Базовый тест"
+  description: "Тест XYZBank"
   tags: [table, functional]
   steps:
-    - name: "Проверка столбца"
+    - name: "Проверка добавленных данных"
       action: CALL_METHOD
-      method: getColumnSelectedElement
+      method: getSelectedRowString
       args: [ 1, "First Name" ]
-      expected: [ "First Name Last Name Post Code Delete" ]
-      assert: EQUALS
-      type: HARD
+      assert:
+        method: EQUALS
+        expected: [ "First Name Last Name Post Code Delete" ]
+        soft: FALSE
 
     - name: "Сортировка столбца"
       action: CALL_METHOD
@@ -83,8 +86,9 @@
       action: CALL_METHOD
       method: isSortedByColumnInReverse
       args: [ 1 ]
-      assert: ASSERT_TRUE
-      type: SOFT
+      assert:
+        method: ASSERT_TRUE
+        soft: TRUE
 
     - name: "Сортировка столбца"
       action: CALL_METHOD
@@ -95,26 +99,29 @@
       action: CALL_METHOD
       method: isSortedByColumn
       args: [ 1 ]
-      assert: ASSERT_TRUE
-      type: SOFT
+      assert:
+        method: ASSERT_TRUE
+        soft: TRUE
 
-    - name: "Проверка столбца"
+    - name: "Проверка данных до удаления"
       action: CALL_METHOD
       method: getSelectedElementOfColumn
       args: [ "First Name", 1 ]
-      expected: [ "First Name" ]
-      assert: EQUALS
-      type: SOFT
+      assert:
+        method: EQUALS
+        expected: [ "First Name" ]
+        soft: TRUE
 
     - name: "Удаление элемента"
       action: CALL_METHOD
       method: deleteElement
       args: [ 5, 1, "First Name" ]
 
-    - name: "Проверка столбца"
+    - name: "Проверка данных после удаления"
       action: CALL_METHOD
       method: getSelectedElementOfColumn
       args: [ "First Name", 1 ]
-      expected: [ "First Name" ]
-      assert: NOT_EQUALS
-      type: SOFT
+      assert:
+        method: NOT_EQUALS
+        expected: [ "First Name" ]
+        soft: TRUE

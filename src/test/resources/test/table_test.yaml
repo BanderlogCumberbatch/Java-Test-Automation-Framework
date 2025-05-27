@@ -1,0 +1,24 @@
+- name: "Тест таблицы"
+  description: "Тест таблицы на w3schools.com"
+  tags: [table, simple]
+  steps:
+    - name: "Открытие сайта"
+      action: OPEN
+      url: "https://www.w3schools.com/html/html_tables.asp"
+
+    - name: "Проверка обратной сортировки"
+      action: CALL_METHOD
+      method: isSortedByColumn
+      args: [ 3 ]
+      assert:
+        method: ASSERT_TRUE
+        soft: FALSE
+
+    - name: "Проверка добавленных данных"
+      action: CALL_METHOD
+      method: getSelectedRowString
+      args: [ 3, "Germany" ]
+      assert:
+        method: EQUALS
+        expected: [ "Alfreds Futterkiste Maria Anders Germany" ]
+        soft: FALSE

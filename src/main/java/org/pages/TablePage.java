@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Класс страницы со списком пользователей.
  */
-public class TablePage extends BasePage {
+public class TablePage extends Page {
 
     public TablePage() {
         this.driver = BrowserManager.getDriver();
@@ -39,14 +39,6 @@ public class TablePage extends BasePage {
             "td[%s][text()='%s']]";
 
     /**
-     * Селектор выбирающий элементы 1-го, 2-го и 3-го столбцов с определенными значениями.
-     */
-    private final String tableDataMultiSelector = "//table[contains(@class, 'table')]/tbody/tr[" +
-            "td[1][text()='%s'] and " +
-            "td[2][text()='%s'] and " +
-            "td[3][text()='%s']]";
-
-    /**
      * Селектор выбирающий из таблицы кнопку определённого столбца (кнопку удаления) с определённым значением другого столбца (имя).
      */
     private final String tableButtonSelector = "//table[contains(@class, 'table')]/tbody/tr[td[%s][text()='%s']]/td[%s]/button";
@@ -56,7 +48,7 @@ public class TablePage extends BasePage {
      * @return List<String>
      */
     @Step("Get list of data of selected column")
-    public final List<String> getColumnSelectedElement(Integer column, String element) {
+    public final List<String> getSelectedRowString(Integer column, String element) {
         Wait.waitUntilVisible(driver, By.xpath(String.format(tableColumnSelector, column)));
         return driver
                 .findElements(By.xpath(String.format(tableDataSelector, column, element)))
