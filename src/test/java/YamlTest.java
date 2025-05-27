@@ -1,28 +1,29 @@
-// YamlTest.java
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import static org.helpers.TestCaseLoader.executeYamlTest;
 
-class YamlTest {
 
-    @Test
-    void executeBankTest() {
+@Listeners({io.qameta.allure.testng.AllureTestNg.class})
+public class YamlTest {
+
+    @Test(description = "XYZ Bank tests")
+    public void executeBankTest() {
         executeYamlTest("test/bank_test.yaml");
     }
 
-    @Test
-    void executeNavigationTest() {
+    @Test(description = "Example.com tests")
+    public void executeNavigationTest() {
         executeYamlTest("test/nav_test.yaml");
     }
 
-    @Test
-    void executeSauceTest() {
+    @Test(description = "Saucedemo.com tests")
+    public void executeSauceTest() {
         executeYamlTest("test/sauce_test.yaml");
     }
 
-    @AfterEach
-    void afterTests() {
+    @AfterMethod
+    public void afterTests() {
         executeYamlTest("test/after_test.yaml");
     }
 }
