@@ -25,8 +25,11 @@ public class BrowserManager {
                         ffOptions.addArguments("--headless");
                     }
                     else {
-                        ffOptions.addArguments("--window-size=" +
-                                ConfigManager.getWindowSize());
+                        String[] ffWindowSize = ConfigManager.getFirefoxWindowSize();
+                        ffOptions.addArguments("--width=" +
+                                ffWindowSize[0]);
+                        ffOptions.addArguments("--height=" +
+                                ffWindowSize[1]);
                     }
                     driver = new FirefoxDriver(ffOptions);
                     break;
@@ -39,7 +42,7 @@ public class BrowserManager {
                     }
                     else {
                         chromeOptions.addArguments("--window-size=" +
-                                ConfigManager.getWindowSize());
+                                ConfigManager.getChromeWindowSize());
                     }
                     driver = new ChromeDriver(chromeOptions);
             }

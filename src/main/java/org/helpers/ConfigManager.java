@@ -69,8 +69,12 @@ public final class ConfigManager {
         return Duration.ofSeconds(Long.parseLong(get("browser.implicit_wait", "10")));
     }
 
-    public static String getWindowSize() {
+    public static String getChromeWindowSize() {
         return get("browser.window_size", "1080x1080").replace("x", ",");
+    }
+
+    public static String[] getFirefoxWindowSize() {
+        return get("browser.window_size", "1080x1080").split("x");
     }
 
     public static String get(String key) {
