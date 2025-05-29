@@ -1,5 +1,5 @@
 // TestExecutor.java
-package org.helper;
+package org.helpers;
 
 import org.junit.jupiter.api.Assertions;
 import org.model.*;

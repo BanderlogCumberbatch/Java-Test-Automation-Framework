@@ -1,5 +1,5 @@
 import org.pages.Page;
-import org.helper.BrowserManager;
+import org.helpers.BrowserManager;
 import org.openqa.selenium.By;
 import org.junit.jupiter.api.*;
 import org.pages.TablePage;
