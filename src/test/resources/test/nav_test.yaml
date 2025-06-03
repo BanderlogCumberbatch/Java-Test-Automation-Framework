@@ -1,4 +1,6 @@
 - name: "Навигация между страницами"
+  description: "Тест example.com"
+  tags: [ nav ]
   steps:
     - name: "Открыть главную страницу"
       action: OPEN
@@ -15,7 +17,7 @@
       assert:
         method: EQUALS
         expected: "https://example.com/about"
-        soft: TRUE
+        soft: FALSE
 
     - name: "Вернуться назад"
       action: NAV_BACK

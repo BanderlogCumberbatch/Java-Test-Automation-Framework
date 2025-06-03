@@ -1,0 +1,54 @@
+- name: "Проверка таблицы"
+  description: "Тест XYZBank"
+  tags: [table, functional]
+  steps:
+    - name: "Проверка добавленных данных"
+      action: GET_TABLE_ROW
+      args: [ 1, "First Name" ]
+      assert:
+        method: EQUALS
+        expected: [ "First Name Last Name Post Code Delete" ]
+        soft: FALSE
+
+    - name: "Сортировка столбца"
+      action: SORT_TABLE_COLUMN
+      args: [ 1 ]
+
+    - name: "Проверка обратной сортировки"
+      action: CHECK_COLUMN_SORTED_REV
+      args: [ 1 ]
+      assert:
+        method: ASSERT_TRUE
+        soft: TRUE
+
+    - name: "Сортировка столбца"
+      action: SORT_TABLE_COLUMN
+      args: [ 1 ]
+
+    - name: "Проверка сортировки"
+      action: CHECK_COLUMN_SORTED
+      args: [ 1 ]
+      assert:
+        method: ASSERT_TRUE
+        soft: TRUE
+
+    - name: "Проверка данных до удаления"
+      action: CALL_METHOD
+      method: getSelectedElementOfColumn
+      args: [ "First Name", 1 ]
+      assert:
+        method: EQUALS
+        expected: [ "First Name" ]
+        soft: TRUE
+
+    - name: "Удаление элемента"
+      action: CLICK_TABLE_ELEMENT
+      args: [ 5, 1, "First Name" ]
+
+    - name: "Проверка данных после удаления"
+      action: GET_TABLE_ELEMENT
+      args: [ "First Name", 1 ]
+      assert:
+        method: NOT_EQUALS
+        expected: [ "First Name" ]
+        soft: TRUE

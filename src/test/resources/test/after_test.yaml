@@ -2,6 +2,9 @@
   description: "Тест XYZBank"
   tags: [after_test]
   steps:
+    - name: "Сделать скриншот"
+      action: TAKE_SCREENSHOT
+
     - name: "Очистить браузер"
       action: REFRESH
 

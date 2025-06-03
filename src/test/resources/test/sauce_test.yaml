@@ -62,8 +62,8 @@
         value: "//div[@class='inventory_item_name']"
       assert:
         method: EQUALS
-        expected: "Sauce Labs Backpack"
-        soft: FALSE
+        expected: "Sauce Labs Backpack (soft assert test)"
+        soft: TRUE
 
     - name: "Начать оформление"
       action: CLICK
@@ -111,5 +111,5 @@
         value: "//h2[@class='complete-header']"
       assert:
         method: EQUALS
-        expected: "Thank you for your order!"
-        soft: FALSE
+        expected: "Thank you for your order! (soft assert test)"
+        soft: TRUE

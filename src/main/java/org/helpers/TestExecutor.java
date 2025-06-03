@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
 
+
 public class TestExecutor {
     private static final Logger logger = LoggerFactory.getLogger(TestExecutor.class);
     private final Page page = new Page();
@@ -27,6 +28,7 @@ public class TestExecutor {
                 executeStep(step);
                 logger.info("Step '{}' completed successfully", step.getName());
             } catch (Exception e) {
+                BrowserManager.takeScreenshot();
                 logger.error("Error executing step '{}': {}", step.getName(), e.getMessage());
                 throw new RuntimeException("Test execution failed", e);
             }
@@ -106,6 +108,9 @@ public class TestExecutor {
                 break;
             case QUIT:
                 BrowserManager.quit();
+                break;
+            case TAKE_SCREENSHOT:
+                BrowserManager.takeScreenshot();
                 break;
             case GET_TABLE_ROW:
                 lastResult = invokeTablePageMethod("getSelectedRowString", step.getArgs());

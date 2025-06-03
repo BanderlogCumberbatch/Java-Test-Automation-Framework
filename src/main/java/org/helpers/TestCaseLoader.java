@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class TestCaseLoader {
+
     public static List<TestCase> loadTestCases(String resourcePath) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();

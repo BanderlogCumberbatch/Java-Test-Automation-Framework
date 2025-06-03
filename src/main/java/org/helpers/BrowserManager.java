@@ -1,12 +1,22 @@
 package org.helpers;
 
 import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.firefox.FirefoxOptions;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 
 public class BrowserManager {
@@ -68,6 +78,18 @@ public class BrowserManager {
         if (driver != null) {
             driver.quit();
             driver = null;
+        }
+    }
+
+    public static void takeScreenshot() {
+        File srcfile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy__hh_mm");
+        String fileName = UUID.randomUUID().toString();
+        File targetFile = new File("screenshots\\" + dateFormat.format(new Date())  + fileName + ".jpg");
+        try {
+            FileUtils.copyFile(srcfile, targetFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -43,3 +43,4 @@ build/
 .allure/allure-2.20.1
 allure-results
 allure-report
+screenshots
