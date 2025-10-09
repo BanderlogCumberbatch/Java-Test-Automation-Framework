@@ -1,0 +1,12 @@
+- name: "Добавление клиента"
+  description: "Тест XYZBank"
+  steps:
+    - name: "Открытие сайта"
+      action: OPEN
+      url: "https://www.globalsqa.com/angularJs-protractor/BankingProject"
+
+    - name: "Переход на страницу менеджера"
+      action: CLICK
+      element:
+        by: XPATH
+        value: "//*[contains(@ng-click, 'manager()')]"
