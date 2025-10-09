@@ -2,7 +2,7 @@
 
 1. Требования: Java 17+, Maven
 1. Установить фреймворк
-1. Зависимости в pom.xml
+1. Зависимости в pom.xml
 1. Импортировать аннотации TestNG
 1. Импортировать метод выполнения yaml-теста в исполняемый файл в директории test:
 
@@ -14,22 +14,18 @@
 Конфигурационный файл позволяет гибко настраивать параметры выполнения тестов:
 
 1. **Секция browser**:
-   1. name: выбор браузера (chrome или firefox)
+   1. name: выбор браузера (chromeилиfirefox)
    1. headless: режим без графического интерфейса (true/false)
    1. implicit\_wait: время неявного ожидания элементов (в секундах)
-   1. window\_size: размер окна браузера (формат ширина x высота)
+   1. window\_size: размер окна браузера (форматширина x высота)
 
 Пример:
 
-browser:
-
-`  `name: firefox
-
-`  `headless: true
-
-`  `implicit\_wait: 15
-
-`  `window\_size: 1920x1080
+      browser:
+         name: firefox
+         headless: true
+         implicit_wait: 15
+         window_size: 1920x1080
 
 2. **Секция environments**:
    1. Определение различных окружений (dev, prod и др.)
@@ -38,17 +34,11 @@ browser:
 
 Пример:
 
-environments:
-
-`  `dev:
-
-`    `base\_url: "https://dev.example.com"
-
-`    `api\_endpoint: "/api/v1"
-
-`  `prod:
-
-`    `base\_url: "https://example.com"
+      environments:
+         dev:
+            base_url: "https://dev.example.com"
+         prod:
+            base_url: "https://example.com"
 
 3. **Секция credentials**:
    1. Хранение учетных данных различных пользователей
@@ -56,25 +46,19 @@ environments:
 
 Пример:
 
-credentials:
-
-`  `admin:
-
-`    `username: "admin\_user"
-
-`    `password: "securePass123"
-
-`  `customer:
-
-`    `email: "customer@example.com"
-
-`    `phone: "+1234567890"
+      credentials:
+         admin:
+            username: "admin_user"
+            password: "securePass123"
+         customer:
+            email: "customer@example.com"
+            phone: "+1234567890"
 
 **Полная спецификация config.yaml**
 
 |**Секция**|**Ключ**|**Тип**|**Значение по умолчанию**|**Описание**|
 | :- | :- | :- | :- | :- |
-|**browser**|name|String|chrome|Браузер для тестирования (chrome, firefox)|
+|**browser**|name|String|chrome|Браузер для тестирования (chrome,firefox)|
 ||headless|Boolean|false|Режим без графического интерфейса|
 ||implicit\_wait|Integer|10|Время неявного ожидания элементов (секунды)|
 ||window\_size|String|1920x1080|Разрешение окна браузера|
@@ -83,7 +67,7 @@ credentials:
 ||prod.url|String|-|URL для production-среды|
 |**credentials**|user.attribute|String|-|Атрибуты данных для различных пользователей|
 
-*Таблица 2. Спецификация config.yaml*
+
 
 **Написание YAML-тестов**
 
@@ -91,68 +75,64 @@ credentials:
 
 - Каждый тест-кейс представляет собой список шагов (steps)
 - Шаги выполняются последовательно сверху вниз
-- Каждый шаг содержит обязательное поле action (тип действия)
-- Для действий с элементами требуется блок element
-- Для проверок используется блок assert (только после действий, которые что-либо возвращают)
+- Каждый шаг содержит обязательное полеaction(тип действия)
+- Для действий с элементами требуется блокelement
+- Для проверок используется блокassert (только после действий, которые что-либо возвращают)
 
 **2. Спецификация локаторов:**\
 Фреймворк поддерживает все основные типы локаторов Selenium. Для каждого действия, связанного с элементом страницы, необходимо указать тип локатора и его значение:
 
 element:
 
-`  `by: "ТИП\_ЛОКАТОРА"  *# Один из: ID, XPATH, CSS, NAME, CLASS\_NAME, TAG\_NAME*
+by: "ТИП\_ЛОКАТОРА"  *# Один из: ID, XPATH, CSS, NAME, CLASS\_NAME, TAG\_NAME*
 
-`  `value: "ЗНАЧЕНИЕ"    *# Строка с локатором*
+value: "ЗНАЧЕНИЕ"    *# Строка с локатором*
 
 **3. Параметризация локаторов:**\
 Локаторы могут содержать динамические значения из конфига:
 
-\- name: "Клик по динамическому элементу"
-
-`  `action: CLICK
-
-`  `element:
-
-`    `by: XPATH
-
-`    `value: "//div[@id='${dynamic.section.id}']/button"
+      - name: "Клик по динамическому элементу"
+      action: CLICK
+      element:
+      by: XPATH
+      value: "//div[@id='${dynamic.section.id}']/button"
 
 **4. Структура тест-шага:**\
 Полная схема шага с комментариями:
 
-\- name: "Описание шага"          *# Обязательное поле*
-
-`  `action: "ACTION\_TYPE"           *# Обязательное поле*
-
-`  `description: "Детали шага"      *# Опционально*
-
-`  `url: "URL"                      *# Только для OPEN*
-
-`  `element:                        *# Для действий с элементами*
-
-`    `by: "LOCATOR\_TYPE"            *# Тип локатора*
-
-`    `value: "LOCATOR\_VALUE"        *# Значение локатора*
-
-`  `value: "TEXT\_OR\_DATA"           *# Для TYPE, значение для ввода*
-
-`  `args:                           *# Для табличных и кастомных действий*
-
-`    `- "аргумент1"
-
-`    `- 42
-
-`    `- true
-
-`  `method: "CUSTOM\_METHOD\_NAME"    *# Для CALL\_METHOD*
-
-`  `assert:                         *# Блок проверки*
-
-`    `method: "ASSERT\_TYPE"         *# EQUALS, NOT\_EQUALS и т.д.*
-
-`    `expected: "EXPECTED\_VALUE"    *# Ожидаемое значение*
-
-`    `soft: true/false              *# Тип ассерта (обязательно)*
+      - name: "Описание шага"          *# Обязательное поле*
+      
+      action: "ACTION\_TYPE"           *# Обязательное поле*
+      
+      description: "Детали шага"      *# Опционально*
+      
+      url: "URL"                      *# Только для OPEN*
+      
+      element:                        *# Для действий с элементами*
+      
+      by: "LOCATOR\_TYPE"            *# Тип локатора*
+      
+      value: "LOCATOR\_VALUE"        *# Значение локатора*
+      
+      value: "TEXT\_OR\_DATA"           *# Для TYPE, значение для ввода*
+      
+      args:                           *# Для табличных и кастомных действий*
+      
+      - "аргумент1"
+      
+        - 42
+      
+        - true
+      
+      method: "CUSTOM\_METHOD\_NAME"    *# Для CALL\_METHOD*
+      
+      assert:                         *# Блок проверки*
+      
+      method: "ASSERT\_TYPE"         *# EQUALS, NOT\_EQUALS и т.д.*
+      
+      expected: "EXPECTED\_VALUE"    *# Ожидаемое значение*
+      
+      soft: true/false              *# Тип ассерта (обязательно)*
 
 
 
@@ -169,7 +149,7 @@ element:
 |**CLASS\_NAME**|{by: CLASS\_NAME, value: "active"}|Поиск по классу элемента|
 |**TAG\_NAME**|{by: TAG\_NAME, value: "input"}|Поиск по тегу элемента|
 
-*Таблица 3. Спецификация локаторов*
+
 
 **Полный список поддерживаемых операций**
 
@@ -209,85 +189,80 @@ element:
 |**ASSET\_TRUE**|{ assert:  method: "ASSERT\_TRUE }|Проверка на истинность|
 |**ASSERT\_FALSE**|{ assert:  method: "ASSERT\_FALSE }|Проверка на ложность|
 
-*Таблица 5. Спецификация ассертов*
+
 
 **Расширенные возможности**
 
 1. **Динамические значения**:
-   1. Использование переменных из конфига: ${credentials.admin.username}
-   1. Подстановка значений окружения: ${environments.dev.base\_url}
+   1. Использование переменных из конфига: ${credentials.admin.username}
+   1. Подстановка значений окружения:${environments.dev.base\_url}
 1. **Вызов кастомных методов**:
 
-   action: CALL\_METHOD
-
-   method: "customMethodName"
-
-   args: ["param1", 42, true]
+         action: CALL_METHOD
+         method: "customMethodName"
+         args: ["param1", 42, true]
 
 1. **Мягкие ассерты**:
 
-   assert:
-
-   `  `method: EQUALS
-
-   `  `expected: "Expected Value"
-
-   `  `soft: true *# Ошибка не прервет выполнение теста*
+         assert:
+         method: EQUALS
+         expected: "Expected Value"
+         soft: true *# Ошибка не прервет выполнение теста*
 
 
 **Интеграция в тестовые сьюты**
 
 Пример тестового класса:
 
-@Listeners({AllureTestNg.class})
+      @Listeners({AllureTestNg.class})
+      
+      public class YamlTestSuite {
+      
+      
+      
+         @Test(description = "Тесты авторизации")
+         
+         public void runAuthorizationTests() {
+         
+            TestCaseLoader.executeYamlTest("tests/authorization.yaml");
+         
+         }
+         
+         
+         
+         @Test(description = "Тесты профиля пользователя")
+   
+         public void runProfileTests() {
+   
+            TestCaseLoader.executeYamlTest("tests/user_profile.yaml");
+   
+         }
 
-public class YamlTestSuite {
 
 
-
-`    `@Test(description = "Тесты авторизации")
-
-`    `public void runAuthorizationTests() {
-
-`        `TestCaseLoader.executeYamlTest("tests/authorization.yaml");
-
-`    `}
-
-
-
-`    `@Test(description = "Тесты профиля пользователя")
-
-`    `public void runProfileTests() {
-
-`        `TestCaseLoader.executeYamlTest("tests/user\_profile.yaml");
-
-`    `}
-
-
-
-`    `@AfterMethod
-
-`    `public void cleanup() {
-
-`        `TestCaseLoader.executeYamlTest("tests/cleanup.yaml");
-
-`    `}
-
-}
+         @AfterMethod
+         
+         public void cleanup() {
+         
+            TestCaseLoader.executeYamlTest("tests/cleanup.yaml");
+         
+         }
+      
+      }
 
 **Запуск тестов**:
 
 1. Через TestNG-сьюты:
 
-@Test(description = "Example.com tests")
+         @Test(description = "Example.com tests")
+         
+         public void executeNavigationTest() {
+         
+            executeYamlTest("test/nav_test.yaml");
+         
+         }
 
-public void executeNavigationTest() {
-
-`  `executeYamlTest("test/nav\_test.yaml");
-
-}
-
-2. Командная строка: mvn test -Dtest=YamlTest
+2. Командная строка:mvn test -Dtest=YamlTest
 
 **Генерация отчетов**:
 
