@@ -23,7 +23,7 @@ public class TablePage extends Page {
     }
 
     /**
-     * Селектор столбца таблицы.
+     * Селектор столбца таблицы
      */
     private final String tableColumnSelector = "//table[contains(@class, 'table')]/tbody/tr/td[%s]";
 
